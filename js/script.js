@@ -102,6 +102,9 @@ const tagClickHandler = function(event) {
 }
 
 function generateTags() {
+  /* [NEW] create a new variable allTags with an empty array */
+  let allTags = [];
+
   /* find all articles */
   const articles = document.querySelectorAll(optArticleSelector);
 
@@ -128,6 +131,11 @@ function generateTags() {
 
       /* add generated code to html variable */
       html = html + linkHTML;
+
+      /*[NEW] chec if this link is NOT alredy in allTags */
+      if (allTags.indexOf(linkHTML) == -1){
+        allTags.push(linkHTML);
+      }
     }
 
     /* insert HTML of all the links into the tags wrapper */
@@ -139,6 +147,11 @@ function generateTags() {
     }
   /* END LOOP: for every article: */
   }
+  /* [NEW] find list of tags in right column */
+  const tagList = document.querySelector('.tags');
+
+  /* [NEW] add html from all tags to tagList */
+  tagList.innerHTML = allTags.join(' ');
 }
 
 generateTags();
