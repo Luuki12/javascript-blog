@@ -1,4 +1,5 @@
 'use strict';
+
 const titleClickHandler = function(event){
   event.preventDefault();
   const clickedElement = this;
@@ -90,11 +91,13 @@ const tagClickHandler = function(event) {
   const tag = href.replace('#tag-', '');
 
   const activeLinks = document.querySelectorAll('a.active[href^="#tag-"]');
+
   for (let activeLink of activeLinks) {
     activeLink.classList.remove('active');
   }
 
   const foundTags = document.querySelectorAll('a[href="'+ href +'"]');
+
   for (let foundTag of foundTags) {
     foundTag.classList.add('active');
   }
@@ -103,7 +106,7 @@ const tagClickHandler = function(event) {
 
 function generateTags() {
   /* [NEW] create a new variable allTags with an empty array */
-  let allTags = [];
+  let allTags = {};
 
   /* find all articles */
   const articles = document.querySelectorAll(optArticleSelector);
@@ -133,8 +136,10 @@ function generateTags() {
       html = html + linkHTML;
 
       /*[NEW] chec if this link is NOT alredy in allTags */
-      if (allTags.indexOf(linkHTML) == -1){
-        allTags.push(linkHTML);
+      if (!allTags[tag]) {
+        allTags[tag] = 1;
+      } else;{
+        allTags[tag]++;
       }
     }
 
@@ -151,7 +156,20 @@ function generateTags() {
   const tagList = document.querySelector('.tags');
 
   /* [NEW] add html from all tags to tagList */
-  tagList.innerHTML = allTags.join(' ');
+  //tagList.innerHTML = allTags.join(' ');
+
+  /* [NEW] create variable for all links HTML code */
+  let allTagsHTML = '';
+
+  /* [NEW] START LOOP: for each tag in allTags: */
+  for(let tag in allTags){
+    /* [NEW] generate code of a link and add it to allTagsHTML */
+    allTagsHTML += tag + ' (' + allTags[tag] + ') ';
+  }
+  /* [NEW] END LOOP: for each tag in allTags: */
+
+  /*[NEW] add HTML from allTagsHTML to tagList */
+  tagList.innerHTML = allTagsHTML;
 }
 
 generateTags();
