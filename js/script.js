@@ -104,6 +104,19 @@ const tagClickHandler = function(event) {
   generateTitleLinks('[data-tags~="'+ tag+'"]');
 }
 
+function calculateTagsParams(tags){
+  const params = {
+    min: [999999],
+    max: [0]
+  }
+  for (let tag in tags){
+    params.max = Math.max(tags[tag], params.max);
+    params.min = Math.min(tags[tag], params.min);
+    console.log(tag + ' is used ' + tags[tag] + ' times');
+  }
+  return params;
+}
+
 function generateTags() {
   /* [NEW] create a new variable allTags with an empty array */
   let allTags = {};
@@ -159,6 +172,8 @@ function generateTags() {
   //tagList.innerHTML = allTags.join(' ');
 
   /* [NEW] create variable for all links HTML code */
+  const tagsParams = calculateTagsParams(allTags);
+  console.log('tagsParams:', tagsParams)
   let allTagsHTML = '';
 
   /* [NEW] START LOOP: for each tag in allTags: */
