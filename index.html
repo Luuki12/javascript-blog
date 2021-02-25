@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="sass/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentt</title>
 </head>
@@ -186,31 +186,19 @@
               </ul>
               <h2 class="section-title">Authors</h2>
               <ul class="list authors">
-                <li>
-                  <a href="#">
-                    <span class="author-name">Kitty Toebean</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="author-name">Theo Tabby</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="author-name">George Tuxedo</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="author-name">Marion Berry</span>
-                  </a>
-                </li>
               </ul>
             </aside>
           </main>
         </div>
       </div>
+      <script id="template-article-link" type="text/x-handlebars-template">
+        <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
+      </script>
+      <script id="template-article-tag" type="text/x-handlebars-template">
+        <li><a href="#tag-{{tag}}"><span>{{tag}}</span></a></li>
+      </script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
       <script src="js/script.js"></script>
 </body>
 </html>
