@@ -105,6 +105,18 @@ function calculateTagsParams(tags){
   return params;
 }
 
+function calculateAuthorsParams(authors){
+  const params = {
+    min: [999999],
+    max: [0]
+  }
+  for(let author in authors){
+    params.max = Math.max(authors[author], params.max);
+    params.min = Math.min(authors[author], params.min);
+  }
+  return params;
+}
+
 function calculateTagClass(count, params){
   const normalizedCount = count - params.min;
   const normalizedMax = params.max - params.min;
@@ -156,10 +168,10 @@ function generateTags() {
     });
     //old HTML code: allTagsHTML += '<li><a href="#tag-' + tag + '" class="' + calculateTagClass(allTags[tag], tagsParams) + '">' + tag + '</a></li>';
 
-  taglist.innerHTML = templates.tagCloudLink(allTagsData);
+  tagList.innerHTML = templates.tagCloudLink(allTagsData);
   }
 
-  tagList.innerHTML = allTagsHTML;
+  //tagList.innerHTML = allTagsHTML;
 
   const allTagsInList = tagList.querySelectorAll('a');
   for (let tag of allTagsInList) {
@@ -172,12 +184,13 @@ generateTags();
 function generateAuthors() {
   let allAuthors = {};
   const articles = document.querySelectorAll(optArticleSelector);
+  let html = '';
 
   for (const article of articles) {
     const articleAuthorHTML = article.querySelector(optArticleAuthorSelector);
     const author = article.getAttribute('data-author'),
     //new cod handlebars
-      linkAuthorData = {author: articleAuthor},
+      linkAuthorData = {author: articleAuthorHTML},
       authorHTML = templates.articleAuthor(linkAuthorData);
     html = html + authorHTML;
 
